@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.border-regular {
+    @apply border-gray-800;
+}
+
+.bg-regular {
+    @apply bg-gray-950
+}
+
+.text-title {
+    @apply text-white;
+}
+
+.text-description {
+    @apply text-gray-400;
+}
+
+.text-regular {
+    @apply text-gray-50;
+}
+
+.minimal-button {
+    @apply p-2 text-description hover:text-regular;
+}
+
+.button-base {
+    @apply rounded-full hover:cursor-pointer
+}
+
+.button-wrapper {
+    @apply py-3 px-6 inline-flex flex-row justify-center items-center gap-x-2 text-regular
+}
+
+.button-regular {
+    @apply button-base bg-gray-700 hover:bg-gray-800
+}
+
+.button-green {
+    @apply button-base bg-spotify-green hover:bg-spotify-green-hover
+}
+
+.form-input {
+    @apply border rounded-full px-4 py-3 bg-gray-700 text-regular
+}
