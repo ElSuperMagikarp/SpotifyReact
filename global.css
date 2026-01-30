@@ -23,7 +23,11 @@
 }
 
 .minimal-button {
-    @apply p-2 text-description hover:text-regular;
+    @apply p-2 text-description
+}
+
+.minimal-button:hover {
+    @apply text-regular
 }
 
 .button-base {
