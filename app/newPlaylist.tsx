@@ -35,8 +35,8 @@ export default function CreatePlaylistPage() {
         const newPlaylist = await submit({
             userId: firstUserId ?? "",
             name: name.trim(),
-            description: description.trim() || undefined,
-            imageUrl: imageUrl.trim() || undefined,
+            description: description.trim() || "",
+            imageUrl: imageUrl.trim() || "",
         });
 
         if (newPlaylist != null) {
