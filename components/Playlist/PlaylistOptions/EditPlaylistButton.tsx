@@ -38,56 +38,58 @@ const EditPlaylistButton = ({ playlist }: Props) => {
                 <Pencil size={30} />
             </TouchableOpacity>
 
-            <PopUpWindow>
-                <Text className="text-lg font-bold mb-4 text-title">
-                    Edit playlist
-                </Text>
-                <View className='flex-1 flex flex-col justify-center items-center gap-y-10'>
-                    <View className='flex flex-col gap-y-1'>
-                        <View className='flex flex-row gap-x-1'>
-                            <Text className='text-regular'>Nom Playlist</Text>
-                            <Text className='text-red-500'>*</Text>
+            <PopUpWindow ref={modalRef}>
+                <View className="w-11/12 max-w-md bg-regular border-regular border-2 rounded-xl p-4 flex flex-col gap-y-4">
+                    <Text className="text-lg font-bold text-title">
+                        Edit playlist
+                    </Text>
+                    <View className='flex flex-col justify-center items-center gap-y-10'>
+                        <View className='flex flex-col gap-y-1'>
+                            <View className='flex flex-row gap-x-1'>
+                                <Text className='text-regular'>Nom Playlist</Text>
+                                <Text className='text-red-500'>*</Text>
+                            </View>
+
+                            <TextInput
+                                placeholder="Playlist name *"
+                                value={playlist?.name}
+                                className="form-input"
+                            />
                         </View>
 
-                        <TextInput
-                            placeholder="Playlist name *"
-                            value={playlist?.name}
-                            className="form-input"
-                        />
+                        <View className='flex flex-col gap-y-1'>
+                            <Text className='text-regular'>Descripció</Text>
+                            <TextInput
+                                placeholder="Description (optional)"
+                                value={playlist?.description}
+                                className="form-input"
+                            />
+                        </View>
+
+                        <View className='flex flex-col gap-y-1'>
+                            <Text className='text-regular'>URL Imatge</Text>
+                            <TextInput
+                                placeholder="Image URL (optional)"
+                                value={playlist?.imageUrl}
+                                autoCapitalize="none"
+                                className="form-input"
+                            />
+                        </View>
                     </View>
 
-                    <View className='flex flex-col gap-y-1'>
-                        <Text className='text-regular'>Descripció</Text>
-                        <TextInput
-                            placeholder="Description (optional)"
-                            value={playlist?.description}
-                            className="form-input"
-                        />
+                    <View className='flex-1 flex flex-row justify-around items-center mt-4'>
+                        <Button
+                            onPress={() => { modalRef.current?.close() }}
+                        >
+                            <Text className="text-white text-center">Cancel·lar</Text>
+                        </Button>
+                        <Button
+                            onPress={handleEdit}
+                            className="button-green"
+                        >
+                            <Text className="text-white text-center">Guardar</Text>
+                        </Button>
                     </View>
-
-                    <View className='flex flex-col gap-y-1'>
-                        <Text className='text-regular'>URL Imatge</Text>
-                        <TextInput
-                            placeholder="Image URL (optional)"
-                            value={playlist?.imageUrl}
-                            autoCapitalize="none"
-                            className="form-input"
-                        />
-                    </View>
-                </View>
-
-                <View className='flex-1 flex flex-row justify-around items-center'>
-                    <Button
-                        onPress={() => { modalRef.current?.close() }}
-                    >
-                        <Text className="text-white text-center">Cancel·lar</Text>
-                    </Button>
-                    <Button
-                        onPress={handleEdit}
-                        className="button-green"
-                    >
-                        <Text className="text-white text-center">Guardar</Text>
-                    </Button>
                 </View>
             </PopUpWindow>
         </>

@@ -30,7 +30,7 @@ export const PopUpWindow = forwardRef<PopUpWindowHandle, PopUpWindowProps>(
                     className="flex-1 bg-black/50 justify-center items-center"
                     onPress={() => setVisible(false)}
                 />
-                <View className="z-99 absolute top-1/2 left-1/2 w-11/12 max-w-md bg-regular border-regular border-2 rounded-xl p-4" {...viewProps}>
+                <View className='z-99 absolute w-full h-full flex justify-center items-center'>
                     {children}
                 </View>
             </Modal>
