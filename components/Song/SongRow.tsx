@@ -14,7 +14,9 @@ const SongRow = ({ index, song }: Props) => {
 
     const durationMinutes = Math.trunc(song.duration / 60);
     const durationSeconds = song.duration % 60;
-    const durationStr = `${durationMinutes}:${durationSeconds}`
+    const durationSecondsStr = durationSeconds < 10 ? "0".concat(durationSeconds.toString()) : durationSeconds;
+
+    const durationStr = `${durationMinutes}:${durationSecondsStr}`
 
     return (
         <View className="w-full flex flex-row items-center my-2 space-x-4">
