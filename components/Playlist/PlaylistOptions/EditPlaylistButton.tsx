@@ -1,12 +1,12 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useRouter } from 'expo-router';
 
-import { Playlist } from '@/interfaces/playlist.interface';
-import { useDeletePlaylist } from '@/hooks/playlists/useDeletePlaylist';
+import { CreatePlaylistDTO, Playlist } from '@/interfaces/playlist.interface';
+import { useEditPlaylist } from '@/hooks/playlists/useEditPlaylist';
 
 import { Pencil } from 'lucide-react-native';
 import { PopUpWindow, PopUpWindowHandle } from '@/components/common/PopUpWindow';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/common/Button';
 
 interface Props {
@@ -16,17 +16,44 @@ interface Props {
 const EditPlaylistButton = ({ playlist }: Props) => {
     const router = useRouter();
 
-    const { deletePlaylistById, error } = useDeletePlaylist();
+    const { edit, loading, error } = useEditPlaylist();
+
+    const [name, setName] = useState(playlist?.name);
+    const [description, setDescription] = useState(playlist?.description ?? '');
+    const [imageUrl, setImageUrl] = useState(playlist?.imageUrl ?? '');
 
     const modalRef = useRef<PopUpWindowHandle>(null);
+
+    useEffect(() => {
+        if (!playlist) return;
+
+        setName(playlist.name);
+        setDescription(playlist.description ?? '');
+        setImageUrl(playlist.imageUrl ?? '');
+    }, [playlist]);
 
     const handleEdit = async () => {
         if (!playlist) return
 
-        await deletePlaylistById(playlist.id)
+        const editPlaylist: CreatePlaylistDTO = {
+            userId: playlist.userId,
+            name: name ?? playlist.name,
+            description: description ?? playlist.description,
+            imageUrl: imageUrl ?? playlist.imageUrl,
+        };
+
+        await edit(playlist.id, editPlaylist)
 
         modalRef.current?.close();
-        if (!error) router.replace("/")
+
+        console.log(error)
+
+
+        if (error == null) {
+            router.replace({ pathname: "/playlist/[id]", params: { id: playlist.id } })
+        } else {
+            router.replace("/")
+        }
     };
 
     return (
@@ -34,6 +61,7 @@ const EditPlaylistButton = ({ playlist }: Props) => {
             <TouchableOpacity
                 className='minimal-button'
                 onPress={() => { modalRef.current?.open(); }}
+                disabled={loading}
             >
                 <Pencil size={30} />
             </TouchableOpacity>
@@ -52,7 +80,9 @@ const EditPlaylistButton = ({ playlist }: Props) => {
 
                             <TextInput
                                 placeholder="Playlist name *"
-                                value={playlist?.name}
+                                value={name}
+                                onChangeText={setName}
+                                editable={!loading}
                                 className="form-input"
                             />
                         </View>
@@ -61,7 +91,9 @@ const EditPlaylistButton = ({ playlist }: Props) => {
                             <Text className='text-regular'>Descripció</Text>
                             <TextInput
                                 placeholder="Description (optional)"
-                                value={playlist?.description}
+                                value={description}
+                                onChangeText={setDescription}
+                                editable={!loading}
                                 className="form-input"
                             />
                         </View>
@@ -70,7 +102,9 @@ const EditPlaylistButton = ({ playlist }: Props) => {
                             <Text className='text-regular'>URL Imatge</Text>
                             <TextInput
                                 placeholder="Image URL (optional)"
-                                value={playlist?.imageUrl}
+                                value={imageUrl}
+                                onChangeText={setImageUrl}
+                                editable={!loading}
                                 autoCapitalize="none"
                                 className="form-input"
                             />
@@ -80,12 +114,14 @@ const EditPlaylistButton = ({ playlist }: Props) => {
                     <View className='flex-1 flex flex-row justify-around items-center mt-4'>
                         <Button
                             onPress={() => { modalRef.current?.close() }}
+                            disabled={loading}
                         >
                             <Text className="text-white text-center">Cancel·lar</Text>
                         </Button>
                         <Button
                             onPress={handleEdit}
                             className="button-green"
+                            disabled={loading}
                         >
                             <Text className="text-white text-center">Guardar</Text>
                         </Button>
