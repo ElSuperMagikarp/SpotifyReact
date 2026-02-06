@@ -25,6 +25,11 @@ export const getPlaylistById = async (id: string): Promise<Playlist> => {
     return res.data;
 };
 
+export const putPlaylist = async (id: string, data: CreatePlaylistDTO): Promise<Playlist> => {
+    const res = await api.put(`/playlists/${id}`, data);
+    return res.data;
+}
+
 export const deletePlaylist = async (id: string): Promise<number> => {
     const res = await api.delete(`/playlists/${id}`);
     return res.status;
