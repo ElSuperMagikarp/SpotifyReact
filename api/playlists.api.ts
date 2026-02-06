@@ -10,11 +10,6 @@ export const createPlaylist = async (
     return res.data;
 };
 
-export const postPlaylists = async (): Promise<Playlist[]> => {
-    const res = await api.post(`/playlists`);
-    return res.data;
-};
-
 export const getPlaylists = async (): Promise<Playlist[]> => {
     const res = await api.get(`/playlists`);
     return res.data;
