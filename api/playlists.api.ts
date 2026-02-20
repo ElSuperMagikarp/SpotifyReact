@@ -30,6 +30,11 @@ export const deletePlaylist = async (id: string): Promise<number> => {
     return res.status;
 };
 
+export const postPlaylistSong = async (playlistId: string, songId: string): Promise<number> => {
+    const res = await api.post(`/playlists/${playlistId}/song/${songId}`);
+    return res.status;
+}
+
 export const getPlaylistSongs = async (id: string): Promise<Song[]> => {
     const res = await api.get(`/playlists/${id}/songs`);
     return res.data;
