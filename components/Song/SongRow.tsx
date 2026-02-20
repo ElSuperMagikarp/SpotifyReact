@@ -48,7 +48,7 @@ const SongRow = ({ index, song }: Props) => {
             <Text className="hidden sm:block w-16 text-regular text-md" numberOfLines={1}>{durationStr}</Text>
 
             <View className="w-7 flex justify-center items-center">
-                <AddButton />
+                <AddButton song={song} />
             </View>
         </View>
     )

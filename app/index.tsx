@@ -31,9 +31,7 @@ export default function Index() {
         renderItem={(song) => (
           <SongBox
             key={song.id}
-            title={song.title}
-            artist={song.artist}
-            imageUrl={song.imageUrl}
+            song={song}
           />
         )}
       />

@@ -2,15 +2,15 @@ import { Music2 } from 'lucide-react-native';
 import { useState } from 'react';
 import { Image, Text, View } from 'react-native';
 
+import { Song } from '@/interfaces/song.interface';
+
 import AddButton from './AddButton';
 
 interface Props {
-    title: string;
-    artist: string;
-    imageUrl: string;
+    song: Song
 }
 
-const SongBox = ({ title, artist, imageUrl }: Props) => {
+const SongBox = ({ song }: Props) => {
     const [ImageHasError, setImageHasError] = useState(false)
 
     return (
@@ -18,7 +18,7 @@ const SongBox = ({ title, artist, imageUrl }: Props) => {
             <View className='group w-full aspect-square bg-gray-500 rounded-md overflow-hidden flex justify-center items-center'>
                 {!ImageHasError ? (
                     <Image
-                        source={{ uri: imageUrl }}
+                        source={{ uri: song.imageUrl }}
                         style={{ width: '100%', height: '100%' }}
                         resizeMode='cover'
                         onError={() => setImageHasError(true)}
@@ -28,14 +28,16 @@ const SongBox = ({ title, artist, imageUrl }: Props) => {
                         <Music2 size={50}></Music2>
                     </View>
                 )}
-                <View className='absolute right-2 bottom-2 flex justify-center items-center
-                    transition-opacity opacity-0 group-hover:opacity-100'>
-                    <AddButton size={35} className='p-1 bg-spotify-green rounded-full' />
-                </View>
+                <AddButton
+                    song={song}
+                    size={35}
+                    buttonWrapperClassName='absolute right-2 bottom-2 flex justify-center items-center transition-opacity opacity-0 group-hover:opacity-100'
+                    className='p-1 bg-spotify-green rounded-full'
+                />
             </View>
             <View className='mt-2'>
-                <Text numberOfLines={1} className='text-regular text-md font-bold'>{title}</Text>
-                <Text numberOfLines={1} className='text-description text-sm'>{artist}</Text>
+                <Text numberOfLines={1} className='text-regular text-md font-bold'>{song.title}</Text>
+                <Text numberOfLines={1} className='text-description text-sm'>{song.artist}</Text>
             </View>
         </View>
     )
