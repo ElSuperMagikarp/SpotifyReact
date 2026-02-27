@@ -30,6 +30,7 @@ const AddButton = ({ song, size, className, buttonWrapperClassName }: Props) => 
         if (!playlist) return
 
         await add(playlist.id, song.id)
+        if (!songError) setIsDropdownOpen(false)
     };
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
