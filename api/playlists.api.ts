@@ -39,3 +39,8 @@ export const getPlaylistSongs = async (id: string): Promise<Song[]> => {
     const res = await api.get(`/playlists/${id}/songs`);
     return res.data;
 };
+
+export const deletePlaylistSong = async (playlistId: string, songId: string): Promise<number> => {
+    const res = await api.delete(`/playlists/${playlistId}/song/${songId}`);
+    return res.status;
+}

@@ -26,7 +26,7 @@ const Playlist = () => {
                 />
             ) : ""}
 
-            <SongTable songs={songs} error={error} />
+            <SongTable playlist={playlist} songs={songs} error={error} />
         </Screen>
     )
 }

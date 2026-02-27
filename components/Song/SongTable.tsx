@@ -3,14 +3,16 @@ import { ActivityIndicator, Text, View } from 'react-native';
 
 import SongRow from './SongRow';
 
+import { Playlist } from '@/interfaces/playlist.interface';
 import { Song } from '@/interfaces/song.interface';
 
 interface Props {
+    playlist: Playlist | null;
     songs: Song[] | null;
     error: string | null;
 }
 
-const SongTable = ({ songs, error }: Props) => {
+const SongTable = ({ playlist, songs, error }: Props) => {
     if (error) {
         return (
             <View className="flex-1 flex flex-col items-center justify-center">
@@ -50,7 +52,7 @@ const SongTable = ({ songs, error }: Props) => {
             {/* Desktop */}
             <View>
                 {songs.map((song, index) => (
-                    <SongRow key={index} index={index + 1} song={song} />
+                    <SongRow key={song.id} index={index + 1} song={song} playlist={playlist} />
                 ))}
             </View>
         </View>

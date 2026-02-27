@@ -1,15 +1,19 @@
-import { Song } from '@/interfaces/song.interface';
-import { Music2 } from 'lucide-react-native';
-import { useState } from 'react';
 import { Image, Text, View } from 'react-native';
-import AddButton from './AddButton';
+import { useState } from 'react';
+
+import { Music2 } from 'lucide-react-native';
+import { Playlist } from '@/interfaces/playlist.interface';
+import { Song } from '@/interfaces/song.interface';
+
+import DeleteButton from './DeleteButton';
 
 interface Props {
     index?: number;
+    playlist: Playlist | null;
     song: Song;
 }
 
-const SongRow = ({ index, song }: Props) => {
+const SongRow = ({ index, playlist, song }: Props) => {
     const [SongImageHasError, setSongImageHasError] = useState(false)
 
     const durationMinutes = Math.trunc(song.duration / 60);
@@ -48,7 +52,7 @@ const SongRow = ({ index, song }: Props) => {
             <Text className="hidden sm:block w-16 text-regular text-md" numberOfLines={1}>{durationStr}</Text>
 
             <View className="w-7 flex justify-center items-center">
-                <AddButton song={song} />
+                <DeleteButton song={song} playlist={playlist} />
             </View>
         </View>
     )
