@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native'
-import { usePathname, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 import { useRemoveSong } from '@/hooks/playlists/useRemoveSong';
 
