@@ -31,7 +31,7 @@ const SongBox = ({ song }: Props) => {
                 <AddButton
                     song={song}
                     size={35}
-                    buttonWrapperClassName='absolute right-2 bottom-2 flex justify-center items-center transition-opacity opacity-0 group-hover:opacity-100'
+                    buttonWrapperClassName='absolute right-2 bottom-2 flex justify-center items-center transition-opacity sm:opacity-0 sm:group-hover:opacity-100'
                     className='p-1 bg-spotify-green rounded-full'
                 />
             </View>
